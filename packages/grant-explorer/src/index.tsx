@@ -1,7 +1,8 @@
 import "./browserPatches";
 
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import React from "react";
+import { initSilk } from "@silk-wallet/silk-wallet-sdk";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
@@ -52,56 +53,72 @@ const grantsStackDataClient = new GrantsStackDataClient({
   },
 });
 
-root.render(
-  <React.StrictMode>
-    <ChakraProvider>
-      <WagmiConfig config={config}>
-        <RainbowKitProvider coolMode chains={chains}>
-          <RoundProvider>
-            <GrantsStackDataProvider client={grantsStackDataClient}>
-              <HashRouter>
-                <Routes>
-                  {/* Protected Routes */}
-                  <Route element={<Auth />} />
+function RoutesComponent() {
+  useEffect(() => {
+    const silk = initSilk();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.ethereum = silk;
 
-                  {/* Default Route */}
-                  <Route path="/" element={<LandingPage />} />
+    silk.login();
+  }, []);
 
-                  <Route path="/rounds" element={<ExploreRoundsPage />} />
-                  <Route path="/projects" element={<ExploreProjectsPage />} />
+  return (
+    <HashRouter>
+      <Routes>
+        {/* Protected Routes */}
+        <Route element={<Auth />} />
 
-                  {/* Round Routes */}
-                  <Route
-                    path="/round/:chainId/:roundId"
-                    element={<ViewRound />}
-                  />
-                  <Route
-                    path="/round/:chainId/:roundId/:applicationId"
-                    element={<ViewProjectDetails />}
-                  />
+        {/* Default Route */}
+        <Route path="/" element={<LandingPage />} />
 
-                  <Route path="/cart" element={<ViewCart />} />
+        <Route path="/rounds" element={<ExploreRoundsPage />} />
+        <Route path="/projects" element={<ExploreProjectsPage />} />
 
-                  <Route path="/thankyou" element={<ThankYou />} />
+        {/* Round Routes */}
+        <Route path="/round/:chainId/:roundId" element={<ViewRound />} />
+        <Route
+          path="/round/:chainId/:roundId/:applicationId"
+          element={<ViewProjectDetails />}
+        />
 
-                  <Route
-                    path="/contributors/:address"
-                    element={<ViewContributionHistoryPage />}
-                  />
+        <Route path="/cart" element={<ViewCart />} />
 
-                  {/* Access Denied */}
-                  <Route path="/access-denied" element={<AccessDenied />} />
+        <Route path="/thankyou" element={<ThankYou />} />
 
-                  {/* 404 */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </HashRouter>
-            </GrantsStackDataProvider>
-          </RoundProvider>
-        </RainbowKitProvider>
-      </WagmiConfig>
-    </ChakraProvider>
-  </React.StrictMode>
-);
+        <Route
+          path="/contributors/:address"
+          element={<ViewContributionHistoryPage />}
+        />
+
+        {/* Access Denied */}
+        <Route path="/access-denied" element={<AccessDenied />} />
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </HashRouter>
+  );
+}
+
+function RootComponent() {
+  return (
+    <React.StrictMode>
+      <ChakraProvider>
+        <WagmiConfig config={config}>
+          <RainbowKitProvider coolMode chains={chains}>
+            <RoundProvider>
+              <GrantsStackDataProvider client={grantsStackDataClient}>
+                <RoutesComponent />
+              </GrantsStackDataProvider>
+            </RoundProvider>
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </ChakraProvider>
+    </React.StrictMode>
+  );
+}
+
+root.render(<RootComponent />);
 
 reportWebVitals();

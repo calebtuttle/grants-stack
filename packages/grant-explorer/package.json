@@ -45,6 +45,7 @@
     "@sentry/react": "^7.27.0",
     "@sentry/tracing": "^7.26.0",
     "@sentry/webpack-plugin": "^1.20.0",
+    "@silk-wallet/silk-wallet-sdk": "^0.0.21",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
