@@ -1,4 +1,5 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ConnectButton from "./ConnectButton";
 import { ReactComponent as GitcoinLogo } from "../../assets/gitcoinlogo-black.svg";
 import { ReactComponent as GrantsExplorerLogo } from "../../assets/topbar-logos-black.svg";
 import { ReactComponent as GrantsExplorerLogoMobile } from "../../assets/explorer-logo-mobile.svg";
@@ -133,12 +134,12 @@ export default function Navbar(props: NavbarProps) {
                   id="connect-wallet-button"
                 >
                   <ConnectButton
-                    showBalance={false}
-                    accountStatus={{
-                      smallScreen: "avatar",
-                      largeScreen: "full",
-                    }}
-                    chainStatus={{ smallScreen: "icon", largeScreen: "full" }}
+                  // showBalance={false}
+                  // accountStatus={{
+                  //   smallScreen: "avatar",
+                  //   largeScreen: "full",
+                  // }}
+                  // chainStatus={{ smallScreen: "icon", largeScreen: "full" }}
                   />
                 </div>
               </div>

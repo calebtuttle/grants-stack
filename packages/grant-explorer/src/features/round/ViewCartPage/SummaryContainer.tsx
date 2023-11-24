@@ -380,7 +380,11 @@ export function SummaryContainer() {
           $variant="solid"
           data-testid="handle-confirmation"
           type="button"
-          onClick={() => {
+          onClick={async () => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            // await window.ethereum.login();
+
             /* If wallet is not connected, display Rainbowkit modal */
             if (!isConnected) {
               openConnectModal?.();

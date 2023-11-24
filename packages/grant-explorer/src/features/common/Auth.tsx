@@ -8,7 +8,8 @@ import {
 
 import { Web3Instance } from "../api/types";
 import { Spinner } from "./Spinner";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ConnectButton from "./ConnectButton";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 /**
  * Component for protecting child routes that require web3 wallet instance.
