@@ -7,10 +7,10 @@ import ReactDOM from "react-dom/client";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
 import { RoundProvider } from "./context/RoundContext";
-import { initDatadog } from "./datadog";
-import { initSentry } from "./sentry";
-import { initTagmanager } from "./tagmanager";
-import { initPosthog } from "./posthog";
+// import { initDatadog } from "./datadog";
+// import { initSentry } from "./sentry";
+// import { initTagmanager } from "./tagmanager";
+// import { initPosthog } from "./posthog";
 import { chains, config } from "./app/wagmi";
 import reportWebVitals from "./reportWebVitals";
 import {
